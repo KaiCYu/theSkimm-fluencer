@@ -3,7 +3,9 @@ POST: `/subscribe`
 GET: `/referrals/:email` 
 
 `Getting Started`
-pull directory via git from `https://github.com/KaiCYu/theSkimm-fluencer.git`
+pull directory via git from using 
+```git clone https://github.com/KaiCYu/theSkimm-fluencer.git```
+```cd theSkimm-fluencer```
 
 - open directory from terminal, then run:
 ```npm install```
