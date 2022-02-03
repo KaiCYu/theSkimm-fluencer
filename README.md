@@ -4,16 +4,25 @@ GET: `/referrals/:email`
 
 `Getting Started`
 pull directory via git from using 
-```git clone https://github.com/KaiCYu/theSkimm-fluencer.git```
-```cd theSkimm-fluencer```
+
+```
+git clone https://github.com/KaiCYu/theSkimm-fluencer.git
+```
+```
+cd theSkimm-fluencer
+```
 
 - open directory from terminal, then run:
-```npm install```
+```
+npm install
+```
 
 Make sure no other programs are using port 3000
 
 Start the server
-```nodemon server.js```
+```
+nodemon server.js
+```
 
 The server initializes with no subscribers. Hit endpoints to subscribe.
 
