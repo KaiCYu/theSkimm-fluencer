@@ -1,0 +1,16 @@
+{
+  "name": "theskimm",
+  "version": "1.0.0",
+  "description": "theSkimm takehome assessment for subscribers",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm run test",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2"
+  }
+}
