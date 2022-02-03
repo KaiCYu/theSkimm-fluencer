@@ -3,10 +3,13 @@ POST: `/subscribe`
 GET: `/referrals/:email` 
 
 `Getting Started`
+pull directory via git from `https://github.com/KaiCYu/theSkimm-fluencer.git`
 
+- open directory from terminal, then run:
 ```npm install```
 
-Usage
+Make sure no other programs are using port 3000
+
 Start the server
 ```nodemon server.js```
 
