@@ -17,8 +17,45 @@ const generateReferralCode = () => {
 const validateEmail = (email) => {
   const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
   const isValid = emailRegexp.test(email);
-  console.log('isValid::: ', isValid);
   return isValid
+}
+
+const createSubscriber = (email) => {
+  const code = generateReferralCode();
+  return {
+    email: email,
+    code: code,
+    referralCount: 0,
+    createdAt: new Date(),
+  }
+}
+
+const findSubscriber = (email) => {
+  const sub = subscribers.filter((sub) => {
+    return sub.email === email
+  })[0];
+
+  if (!sub) {
+    throw new Error('No subscriber was found with this email.')
+  }
+
+  return sub;
+};
+
+// increment the referralCount of the user that generated the code
+const referralUsed = (code) => {
+  const sub = subscribers.filter((sub) => {
+    return sub.code === code
+  })[0];
+
+  if (!sub) {
+    console.log('No subscriber was found with this referral code.');
+    return;
+  }
+
+  const count = sub.referralCount = sub.referralCount + 1;
+  console.log(`Someone used your referral code, ${sub.email}! Your current referral count is: ${count}`);
+  return count;
 }
 
 app.get('/', (req, res) => {
@@ -27,8 +64,6 @@ app.get('/', (req, res) => {
 
 app.post('/subscribe', (req, res) => {
   const { body: { email, code } } = req;
-  console.log('email:::', email);
-  console.log('code:::', code);
 
   if (!email) {
     throw new Error('You must subscribe using an email');
@@ -39,14 +74,23 @@ app.post('/subscribe', (req, res) => {
     throw new Error('You must subscribe using a valid email');
   } 
 
-  console.log('subscribers:::', subscribers);
-  res.send("Thank you for subscribing to the Skimm'fluencer!")
+  const sub = createSubscriber(email);
+
+  if (code) {
+    referralUsed(code);
+  }
+
+  subscribers.push(sub);
+
+  res.send(`Thank you for subscribing to the Skimm'fluencer! Use your referral code (${sub.code}) to get bonuses!`)
 })
 
+// get referral count from email
 app.get('/referrals/:email', function (req, res) {
-  console.log('req.params:::', req.params);
+  const { params: { email } } = req;
 
-  res.send(req.params)
+  const sub = findSubscriber(email);
+  res.send(`Referral count: ${sub.referralCount}`);
 })
 
 app.listen(port, () => {
